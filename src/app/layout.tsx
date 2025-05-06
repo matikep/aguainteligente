@@ -1,12 +1,12 @@
+
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google'; // Use a clear, simple font like Inter
+import { Inter } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppHeader } from '@/components/layout/header';
 import { AppSidebar } from '@/components/layout/sidebar';
-import { Toaster } from "@/components/ui/toaster"; // Import Toaster
-
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -22,7 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es"> {/* Set language to Spanish */}
+    <html lang="es">
+      {/* Note: Next.js automatically handles <head> elements via metadata */}
       <body
         className={cn(
           'min-h-screen bg-background font-sans antialiased',
