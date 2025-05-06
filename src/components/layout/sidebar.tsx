@@ -44,9 +44,14 @@ export function AppSidebar() {
        <SidebarHeader className="p-4">
          <div className="flex items-center gap-2">
             <Leaf className="h-8 w-8 text-primary-foreground" />
-            <h2 className="text-xl font-semibold text-primary-foreground group-data-[collapsible=icon]:hidden">
-                AguaInteligente
-            </h2>
+            <div className="flex flex-col group-data-[collapsible=icon]:hidden">
+                <h2 className="text-xl font-semibold text-primary-foreground">
+                    Agua Inteligente
+                </h2>
+                <p className="text-xs text-sidebar-foreground/70">
+                    Tópicos de ingeniería 2169 - Grupo 10
+                </p>
+            </div>
             {isMobile && <SidebarTrigger className="ml-auto" />}
          </div>
 
@@ -76,7 +81,7 @@ export function AppSidebar() {
        <SidebarFooter className="p-4 group-data-[collapsible=icon]:hidden">
          {/* Optional: Add footer content like version number or quick links */}
          <p className="text-xs text-sidebar-foreground/70">
-            © {new Date().getFullYear()} AguaInteligente
+            © {new Date().getFullYear()} Agua Inteligente
          </p>
        </SidebarFooter>
     </Sidebar>

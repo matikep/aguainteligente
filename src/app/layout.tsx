@@ -11,7 +11,7 @@ import { Toaster } from "@/components/ui/toaster";
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
-  title: 'AguaInteligente',
+  title: 'Agua Inteligente', // Updated title
   description:
     'Plataforma IoT para monitoreo y automatización de riego para agricultores chilenos.',
 };
@@ -23,7 +23,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      {/* Note: Next.js automatically handles <head> elements via metadata */}
       <body
         className={cn(
           'min-h-screen bg-background font-sans antialiased',
