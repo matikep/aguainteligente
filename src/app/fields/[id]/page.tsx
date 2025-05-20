@@ -44,14 +44,12 @@ const chartConfig = {
   },
 } satisfies import("@/components/ui/chart").ChartConfig;
 
-interface PageProps {
-  params: {
-    id: string;
-  };
-  searchParams: { [key: string]: string | string[] | undefined };
+type Props = {
+  params: { id: string }
+  searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export default function FieldDetailPage({ params }: PageProps) {
+export default async function FieldDetailPage({ params }: Props) {
   // In a real app, fetch fieldData and irrigationHistory based on params.id
 
   return (
