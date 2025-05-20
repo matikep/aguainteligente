@@ -44,7 +44,7 @@ const chartConfig = {
   },
 } satisfies import("@/components/ui/chart").ChartConfig;
 
-export default async function FieldDetailPage({
+export default function FieldDetailPage({
   params,
 }: {
   params: { id: string }
