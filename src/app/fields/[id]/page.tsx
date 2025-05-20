@@ -46,11 +46,12 @@ const chartConfig = {
 
 type Props = {
   params: Promise<{ id: string }>
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-export default async function FieldDetailPage({ params }: Props) {
+export default async function FieldDetailPage({ params, searchParams }: Props) {
   const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
   const id = resolvedParams.id;
   // In a real app, fetch fieldData and irrigationHistory based on params.id
 
