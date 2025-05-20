@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -11,6 +10,7 @@ import {
   Leaf,
   Settings,
   Waves, // Using Waves for Impact
+  Cpu // Añadido para Arquitectura
 } from "lucide-react";
 import {
   Sidebar,
@@ -30,6 +30,7 @@ const navItems = [
   { href: "/", label: "Dashboard", icon: Home },
   { href: "/fields", label: "Gestión Campos", icon: BarChart },
   { href: "/settings", label: "Configuración Riego", icon: Settings },
+  { href: "/arquitectura", label: "Arquitectura", icon: Cpu },
   { href: "/help", label: "Capacitación y Ayuda", icon: HelpCircle },
   { href: "/impact", label: "Impacto Ambiental", icon: Waves }, // Using Waves icon
 ];

@@ -1,8 +1,8 @@
-
 'use client'; // Need client component for chart interaction
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Droplet, Thermometer, Calendar, Edit, BarChartHorizontalBig } from "lucide-react";
 import Link from "next/link";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart";
@@ -44,8 +44,11 @@ const chartConfig = {
   },
 } satisfies import("@/components/ui/chart").ChartConfig;
 
-
-export default function FieldDetailPage({ params }: { params: { id: string } }) {
+export default async function FieldDetailPage({
+  params,
+}: {
+  params: { id: string }
+}) {
   // In a real app, fetch fieldData and irrigationHistory based on params.id
 
   return (

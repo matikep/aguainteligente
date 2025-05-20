@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss";
 
-export default {
+const config: Config = {
     darkMode: ["class"],
     content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -22,7 +22,17 @@ export default {
   			},
   			primary: {
   				DEFAULT: 'hsl(var(--primary))',
-  				foreground: 'hsl(var(--primary-foreground))'
+  				foreground: 'hsl(var(--primary-foreground))',
+  				50: '#f0fdf4',
+  				100: '#dcfce7',
+  				200: '#bbf7d0',
+  				300: '#86efac',
+  				400: '#4ade80',
+  				500: '#22c55e',
+  				600: '#16a34a',
+  				700: '#15803d',
+  				800: '#166534',
+  				900: '#14532d',
   			},
   			secondary: {
   				DEFAULT: 'hsl(var(--secondary))',
@@ -82,13 +92,24 @@ export default {
   				to: {
   					height: '0'
   				}
+  			},
+  			'pulse-slow': {
+  				'0%': { opacity: '1' },
+  				'50%': { opacity: '0.5' },
+  				'100%': { opacity: '1' }
   			}
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+  			'pulse-slow': 'pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
   		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('tailwindcss-animate'),
+  ],
 } satisfies Config;
+
+export default config;

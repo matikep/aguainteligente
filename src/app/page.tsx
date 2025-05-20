@@ -1,136 +1,253 @@
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { AlertCircle, Droplet, Sun, BarChart, Thermometer, Waves } from "lucide-react";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import Image from 'next/image';
+import { useState, useEffect } from "react";
+import { Droplet, Thermometer, Gauge, Zap, Clock, Calendar, Wifi, Cloud, Activity } from "lucide-react";
+import { NewBadge } from "@/components/ui/new-badge";
 
-export default function Dashboard() {
-  // Mock data - replace with actual data fetching later
-  const realTimeData = {
-    soilHumidity: 65, // percentage
-    ambientTemperature: 22, // Celsius
-    waterLevel: 70, // percentage or level
-  };
+interface SensorData {
+  soilMoisture: number;
+  temperature: number;
+  waterLevel: number;
+  valveStatus: boolean;
+  pumpStatus: boolean;
+  lastWatering: string;
+  nextWatering: string;
+  waterUsage: number;
+  efficiency: number;
+}
 
-  const alerts = [
-    { id: 1, type: "warning", message: "Nivel de humedad bajo en Parcela A. Se recomienda riego.", field: "Parcela A" },
-    { id: 2, type: "info", message: "Riego programado para Parcela B en 2 horas.", field: "Parcela B" },
-  ];
+export default function Home() {
+  const [sensorData, setSensorData] = useState<SensorData>({
+    soilMoisture: 65,
+    temperature: 25,
+    waterLevel: 75,
+    valveStatus: false,
+    pumpStatus: false,
+    lastWatering: "2024-03-20 08:30",
+    nextWatering: "2024-03-20 18:00",
+    waterUsage: 120,
+    efficiency: 85
+  });
 
-  const recommendations = [
-    { id: 1, text: "Optimizar horario de riego nocturno para Parcela C para reducir evaporación." },
-    { id: 2, text: "Considerar ajuste de umbral de humedad en Parcela A basado en pronóstico seco." },
-  ];
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSensorData(prev => ({
+        ...prev,
+        soilMoisture: Math.floor(Math.random() * 100),
+        temperature: Math.floor(Math.random() * 40) - 10,
+        waterLevel: Math.floor(Math.random() * 100),
+        waterUsage: Math.floor(Math.random() * 200),
+        efficiency: Math.floor(Math.random() * 30) + 70
+      }));
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div className="flex flex-col gap-6">
-      <h1 className="text-3xl font-bold">Panel de Control</h1>
+    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
+      {/* Header */}
+      
 
-      {/* Real-time Data Cards */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <Card className="shadow-md">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-lg font-medium">Humedad del Suelo</CardTitle>
-            <Droplet className="h-6 w-6 text-secondary" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-4xl font-bold">{realTimeData.soilHumidity}%</div>
-            <p className="text-xs text-muted-foreground">Promedio general actual</p>
-          </CardContent>
-        </Card>
-        <Card className="shadow-md">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-lg font-medium">Temperatura Ambiente</CardTitle>
-            <Thermometer className="h-6 w-6 text-destructive" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-4xl font-bold">{realTimeData.ambientTemperature}°C</div>
-            <p className="text-xs text-muted-foreground">Temperatura actual</p>
-          </CardContent>
-        </Card>
-        <Card className="shadow-md">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-lg font-medium">Nivel de Agua</CardTitle>
-             <Waves className="h-6 w-6 text-blue-500" /> {/* Using Waves icon */}
-          </CardHeader>
-          <CardContent>
-            <div className="text-4xl font-bold">{realTimeData.waterLevel}%</div>
-            <p className="text-xs text-muted-foreground">Nivel del estanque principal</p>
-          </CardContent>
-        </Card>
-      </div>
+      <main>
+        {/* Hero Section */}
+        <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Panel de Control</h2>
+            <p className="text-gray-600">Monitoreo y control en tiempo real del sistema de riego</p>
+          </div>
+        </div>
 
-       {/* Placeholder Image */}
-       <div className="relative mt-6 h-64 w-full overflow-hidden rounded-lg shadow-md">
-         <Image
-            src="https://picsum.photos/1200/400"
-            alt="Campo agrícola"
-            layout="fill"
-            objectFit="cover"
-            data-ai-hint="agriculture field"
-          />
-         <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-            <h2 className="text-3xl font-semibold text-white text-center p-4">Bienvenido a AguaInteligente</h2>
-         </div>
-       </div>
-
-
-      {/* Alerts Section */}
-      <div className="space-y-4">
-        <h2 className="text-2xl font-semibold">Alertas Inteligentes</h2>
-        {alerts.length > 0 ? (
-          alerts.map((alert) => (
-            <Alert key={alert.id} variant={alert.type === 'warning' ? 'destructive' : 'default'} className="shadow">
-              <AlertCircle className="h-5 w-5" />
-              <AlertTitle>{alert.field}</AlertTitle>
-              <AlertDescription>{alert.message}</AlertDescription>
-            </Alert>
-          ))
-        ) : (
-          <p className="text-muted-foreground">No hay alertas activas.</p>
-        )}
-         <Button asChild variant="link" className="p-0 h-auto">
-             <Link href="/fields">Ver todas las alertas</Link>
-         </Button>
-      </div>
-
-      {/* Recommendations Section */}
-      <div className="space-y-4">
-        <h2 className="text-2xl font-semibold">Recomendaciones de Riego</h2>
-         <Card className="shadow-md">
-            <CardContent className="p-6 space-y-3">
-                {recommendations.length > 0 ? (
-                recommendations.map((rec) => (
-                    <div key={rec.id} className="flex items-start gap-3">
-                     <Sun className="h-5 w-5 text-accent flex-shrink-0 mt-1" />
-                     <p className="text-sm">{rec.text}</p>
-                    </div>
-                ))
-                ) : (
-                <p className="text-muted-foreground">No hay recomendaciones disponibles.</p>
-                )}
-            </CardContent>
-         </Card>
-      </div>
-
-       {/* Quick Actions */}
-       <div className="space-y-4">
-            <h2 className="text-2xl font-semibold">Acciones Rápidas</h2>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                 <Button size="lg" className="text-lg" asChild>
-                     <Link href="/fields"><BarChart className="mr-2 h-6 w-6" /> Gestionar Campos</Link>
-                 </Button>
-                 <Button size="lg" className="text-lg" variant="secondary" asChild>
-                     <Link href="/settings"><Droplet className="mr-2 h-6 w-6" /> Configurar Riego</Link>
-                 </Button>
-                 <Button size="lg" className="text-lg" variant="outline" asChild>
-                    <Link href="/impact"><Waves className="mr-2 h-6 w-6" /> Ver Impacto</Link>
-                 </Button>
+        {/* Overview Cards */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+          <div className="bg-white rounded-lg shadow-sm p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-medium text-gray-900">Eficiencia del Sistema</h3>
+              <NewBadge />
             </div>
-       </div>
+            <div className="flex items-center">
+              <Activity className="w-8 h-8 text-green-500 mr-3" />
+              <div>
+                <p className="text-3xl font-bold text-gray-900">{sensorData.efficiency}%</p>
+                <p className="text-sm text-gray-500">Optimización de recursos</p>
+              </div>
+            </div>
+          </div>
 
+          <div className="bg-white rounded-lg shadow-sm p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-medium text-gray-900">Consumo de Agua</h3>
+              <NewBadge />
+            </div>
+            <div className="flex items-center">
+              <Droplet className="w-8 h-8 text-blue-500 mr-3" />
+              <div>
+                <p className="text-3xl font-bold text-gray-900">{sensorData.waterUsage}L</p>
+                <p className="text-sm text-gray-500">Últimas 24 horas</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-sm p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-medium text-gray-900">Último Riego</h3>
+              <NewBadge />
+            </div>
+            <div className="flex items-center">
+              <Clock className="w-8 h-8 text-purple-500 mr-3" />
+              <div>
+                <p className="text-3xl font-bold text-gray-900">{sensorData.lastWatering}</p>
+                <p className="text-sm text-gray-500">Duración: 15 min</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-sm p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-medium text-gray-900">Próximo Riego</h3>
+              <NewBadge />
+            </div>
+            <div className="flex items-center">
+              <Calendar className="w-8 h-8 text-orange-500 mr-3" />
+              <div>
+                <p className="text-3xl font-bold text-gray-900">{sensorData.nextWatering}</p>
+                <p className="text-sm text-gray-500">Programado</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Sensor Cards */}
+          <div className="lg:col-span-2 space-y-6">
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-medium text-gray-900">Estado de Sensores</h3>
+                <NewBadge />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="text-sm font-medium text-gray-900">Humedad del Suelo</h4>
+                    <Droplet className="w-5 h-5 text-blue-500" />
+                  </div>
+                  <p className="text-2xl font-bold text-gray-900">{sensorData.soilMoisture}%</p>
+                  <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                    <div 
+                      className="bg-blue-500 h-2 rounded-full" 
+                      style={{ width: `${sensorData.soilMoisture}%` }}
+                    />
+                  </div>
+                </div>
+
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="text-sm font-medium text-gray-900">Temperatura Ambiente</h4>
+                    <Thermometer className="w-5 h-5 text-red-500" />
+                  </div>
+                  <p className="text-2xl font-bold text-gray-900">{sensorData.temperature}°C</p>
+                  <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                    <div 
+                      className="bg-red-500 h-2 rounded-full" 
+                      style={{ width: `${((sensorData.temperature + 10) / 50) * 100}%` }}
+                    />
+                  </div>
+                </div>
+
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="text-sm font-medium text-gray-900">Nivel de Agua</h4>
+                    <Gauge className="w-5 h-5 text-green-500" />
+                  </div>
+                  <p className="text-2xl font-bold text-gray-900">{sensorData.waterLevel}%</p>
+                  <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                    <div 
+                      className="bg-green-500 h-2 rounded-full" 
+                      style={{ width: `${sensorData.waterLevel}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-medium text-gray-900">Control de Actuadores</h3>
+                <NewBadge />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-4">
+                    <h4 className="text-sm font-medium text-gray-900">Válvula Solenoide</h4>
+                    <button 
+                      className={`px-4 py-2 rounded-md text-sm font-medium ${
+                        sensorData.valveStatus 
+                          ? 'bg-green-100 text-green-800' 
+                          : 'bg-gray-100 text-gray-800'
+                      }`}
+                      onClick={() => setSensorData(prev => ({ ...prev, valveStatus: !prev.valveStatus }))}
+                    >
+                      {sensorData.valveStatus ? 'Activo' : 'Inactivo'}
+                    </button>
+                  </div>
+                  <p className="text-sm text-gray-500">Control de flujo de agua</p>
+                </div>
+
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-4">
+                    <h4 className="text-sm font-medium text-gray-900">Bomba de Agua</h4>
+                    <button 
+                      className={`px-4 py-2 rounded-md text-sm font-medium ${
+                        sensorData.pumpStatus 
+                          ? 'bg-green-100 text-green-800' 
+                          : 'bg-gray-100 text-gray-800'
+                      }`}
+                      onClick={() => setSensorData(prev => ({ ...prev, pumpStatus: !prev.pumpStatus }))}
+                    >
+                      {sensorData.pumpStatus ? 'Activo' : 'Inactivo'}
+                    </button>
+                  </div>
+                  <p className="text-sm text-gray-500">Presión del sistema</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* System Status */}
+          <div className="bg-white rounded-lg shadow-sm p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-medium text-gray-900">Estado del Sistema</h3>
+              <NewBadge />
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <Wifi className="w-5 h-5 text-green-500 mr-2" />
+                  <span className="text-sm text-gray-900">Conexión IoT</span>
+                </div>
+                <span className="text-sm text-green-600">Conectado</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <Cloud className="w-5 h-5 text-green-500 mr-2" />
+                  <span className="text-sm text-gray-900">Azure IoT Hub</span>
+                </div>
+                <span className="text-sm text-green-600">Conectado</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <Activity className="w-5 h-5 text-green-500 mr-2" />
+                  <span className="text-sm text-gray-900">Stream Analytics</span>
+                </div>
+                <span className="text-sm text-green-600">Activo</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      
     </div>
   );
 }
