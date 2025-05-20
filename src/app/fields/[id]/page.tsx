@@ -45,11 +45,13 @@ const chartConfig = {
 } satisfies import("@/components/ui/chart").ChartConfig;
 
 type Props = {
-  params: { id: string }
+  params: Promise<{ id: string }>
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
 export default async function FieldDetailPage({ params }: Props) {
+  const resolvedParams = await params;
+  const id = resolvedParams.id;
   // In a real app, fetch fieldData and irrigationHistory based on params.id
 
   return (
@@ -141,12 +143,12 @@ export default async function FieldDetailPage({ params }: Props) {
             </CardHeader>
             <CardContent className="flex flex-col gap-4 sm:flex-row sm:justify-start">
                  <Button size="lg" className="text-lg" asChild>
-                   <Link href={`/fields/${params.id}/edit`}>
+                   <Link href={`/fields/${id}/edit`}>
                      <Edit className="mr-2 h-6 w-6" /> Personalizar Parámetros
                    </Link>
                  </Button>
                  <Button size="lg" className="text-lg" variant="outline" asChild>
-                    <Link href={`/fields/${params.id}/history`}>
+                    <Link href={`/fields/${id}/history`}>
                         <BarChartHorizontalBig className="mr-2 h-6 w-6" /> Ver Historial Completo
                     </Link>
                  </Button>
