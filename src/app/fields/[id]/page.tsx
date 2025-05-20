@@ -24,13 +24,13 @@ const fieldData = {
 
 // Mock irrigation history
 const irrigationHistory = [
-  { date: "Lun", duration: 30, waterUsed: 50 },
-  { date: "Mar", duration: 0, waterUsed: 0 },
-  { date: "Mié", duration: 45, waterUsed: 75 },
-  { date: "Jue", duration: 30, waterUsed: 50 },
-  { date: "Vie", duration: 60, waterUsed: 100 },
-  { date: "Sáb", duration: 0, waterUsed: 0 },
-  { date: "Dom", duration: 40, waterUsed: 65 },
+  { date: "15/05/2025", duration: 30, waterUsed: 50 },
+  { date: "16/05/2025", duration: 0, waterUsed: 0 },
+  { date: "17/05/2025", duration: 45, waterUsed: 75 },
+  { date: "18/05/2025", duration: 30, waterUsed: 50 },
+  { date: "19/05/2025", duration: 60, waterUsed: 100 },
+  { date: "20/05/2025", duration: 0, waterUsed: 0 },
+  { date: "21/05/2025", duration: 40, waterUsed: 65 },
 ];
 
 const chartConfig = {

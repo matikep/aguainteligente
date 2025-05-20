@@ -16,14 +16,14 @@ const waterSavingsData = {
 };
 
 const monthlySavings = [
-  { month: "Ene", saved: 12000 },
-  { month: "Feb", saved: 15000 },
-  { month: "Mar", saved: 18000 },
-  { month: "Abr", saved: 16000 },
-  { month: "May", saved: 20000 },
-  { month: "Jun", saved: 22000 },
-  { month: "Jul", saved: 25000 },
-  { month: "Ago", saved: 22000 },
+  { month: "Ene 2025", saved: 12000 },
+  { month: "Feb 2025", saved: 15000 },
+  { month: "Mar 2025", saved: 18000 },
+  { month: "Abr 2025", saved: 16000 },
+  { month: "May 2025", saved: 20000 },
+  { month: "Jun 2025", saved: 22000 },
+  { month: "Jul 2025", saved: 25000 },
+  { month: "Ago 2025", saved: 22000 },
   // Add more months as needed
 ];
 

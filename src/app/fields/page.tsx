@@ -9,10 +9,10 @@ import Link from "next/link";
 
 // Mock data for fields - replace with actual data fetching
 const fields = [
-  { id: "f1", name: "Parcela A", crop: "Tomates", status: "active", lastIrrigation: "Hace 3 horas", humidity: 60, temperature: 23 },
-  { id: "f2", name: "Campo Norte", crop: "Lechugas", status: "inactive", lastIrrigation: "Ayer 18:00", humidity: 75, temperature: 21 },
-  { id: "f3", name: "Invernadero 1", crop: "Pimientos", status: "warning", lastIrrigation: "Hace 8 horas", humidity: 45, temperature: 25 },
-  { id: "f4", name: "Parcela Sur B", crop: "Maíz", status: "active", lastIrrigation: "Hoy 06:00", humidity: 70, temperature: 22 },
+  { id: "f1", name: "Parcela A", crop: "Tomates", status: "active", lastIrrigation: "21/05/2025 15:00", humidity: 60, temperature: 23 },
+  { id: "f2", name: "Campo Norte", crop: "Lechugas", status: "inactive", lastIrrigation: "20/05/2025 18:00", humidity: 75, temperature: 21 },
+  { id: "f3", name: "Invernadero 1", crop: "Pimientos", status: "warning", lastIrrigation: "21/05/2025 08:00", humidity: 45, temperature: 25 },
+  { id: "f4", name: "Parcela Sur B", crop: "Maíz", status: "active", lastIrrigation: "21/05/2025 06:00", humidity: 70, temperature: 22 },
 ];
 
 function getStatusVariant(status: string): "default" | "secondary" | "destructive" | "outline" {

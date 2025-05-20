@@ -23,8 +23,8 @@ export default function Home() {
     waterLevel: 75,
     valveStatus: false,
     pumpStatus: false,
-    lastWatering: "2024-03-20 08:30",
-    nextWatering: "2024-03-20 18:00",
+    lastWatering: "2025-03-20 08:30",
+    nextWatering: "2025-03-20 18:00",
     waterUsage: 120,
     efficiency: 85
   });
